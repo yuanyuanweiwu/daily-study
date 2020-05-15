@@ -1,2 +1,7 @@
 # daily-study
-recording the learning process of web-design
+## 写作目的:
+​    以巩固js基础为目的的复习规划
+
+​    应该是个填坑系列了,准备先以JavaScript高级程序设计第三版为基础,进行读书笔记.对JS基础,数据类型(ES5,ES6)进行一个梳理总结.后期进行react框架的学习以及源码研究.和leetcode算法的练习  
+
+  
