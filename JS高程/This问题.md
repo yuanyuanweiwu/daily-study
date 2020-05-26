@@ -80,15 +80,33 @@
    bind传参与call类似，但是他不会立即执行，而是返回一个新的函数引用。
 
   ```javascript
-  
+    var obj={
+      value:10,
+      say:function(){
+        setTimeout(function(){
+            console.log(this.value)
+        },1000)
+      }
+        }
+       obj.say() //此时this的指向为window
+-----------------------
+    var obj={
+      value:10,
+      say:function(){
+        setTimeout(function(){
+            console.log(this.value)
+        }.bind(this),1000)
+      }
+        }
+       obj.say() //10
   ```
 
-  总结，三个方法均可以改变this的值。接受的第一个值永远是目标对象，其中call，apply会立即执行。bind会返回一个绑定函数可稍后执行。call接受全部参数，apply接受一个数组集合。
+  总结，三个方法均可以改变this的值。接受的第一个值永远是this指向的目标对象，其中call，apply会立即执行。bind会返回一个绑定函数可稍后执行。call接受全部参数，apply接受一个数组集合。
 
-  ### call/apply/bind模拟实现
+------
+### call/apply/bind模拟实现
 
 - call
-
   ```javascript
   //ES5
   Function.prototype.mycall=function(context){
@@ -154,4 +172,15 @@
 
   如果是作为构造函数，此时的this指向为当前对象，新对象根本没有属性值。
 
+### 如何实现new
+
+```JavaScript
+function newObj(){
+    var obj=new Object()
+    Constructor=[].shift.call(arguments)
+    obj.__proto__=Constuctor.prototype          //获取构造函数原型上的方法
+    var ret= Constructor.apply(obj,arguments)   //获取构造函数中的属性
+    return typeOf ret==='Object'?ret:obj        //确保返回值是Object类型
+}
+```
 

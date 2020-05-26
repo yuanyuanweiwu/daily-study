@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function newObj() {
+        var obj = new Object();
+        Constructor = [].shift.call(arguments);
+        obj.__proto__ = Constructor.prototype;
+        var ret = Constructor.apply(obj, arguments);
+        debugger
+        return typeof ret === "Object" ? ret : obj;
+      }
+
+      function tako(name, age) {
+        this.name = name;
+        this.age = age;
+
+        return 'ssss'
+      }
+      tako.prototype.say = function () {
+        console.log(this.name);
+      };
+      var person = newObj(tako, "jack", 12);
+      console.log(person);
+
+
+
+
+      function Otaku(name, age) {
+        this.strength = 60;
+        this.age = age;
+
+        return {
+          name: name,
+          habit: "Games",
+        };
+      }
+
+      var person = new Otaku("Kevin", "18");
+
+      console.log(person.name); // Kevin
+      console.log(person.habit); // Games
+      console.log(person.strength); // undefined
+      console.log(person.age); // undefined
+    </script>
+  </body>
+</html>
