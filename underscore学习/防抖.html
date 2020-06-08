@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        width: 100%;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        color: #fff;
+        background-color: #444;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+      var count = 1;
+      var container = document.getElementById("container");
+      container.addEventListener("mousemove", debounce(show, 2000,true));
+      function show(e) {
+        container.innerHTML = count++;
+      }
+
+      function debounce(func, wait, immediate) {
+        var timer,result ;
+        return function () {
+          var that = this;
+          var args = arguments;
+
+          if (timer) clearTimeout(timer);
+          if (immediate) {
+             // 如果已经执行过，不再执行
+             var callNow = !timer;
+             timer = setTimeout(function(){
+                timer = null;
+            }, wait)
+            if (callNow) func.apply(that, args)
+          } else {
+            timer = setTimeout(function () {
+              func.apply(that, args);
+            }, wait);
+          }
+          return result 
+        };
+      }
+    </script>
+  </body>
+</html>
