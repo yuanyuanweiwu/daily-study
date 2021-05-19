@@ -79,27 +79,28 @@
 
    bind传参与call类似，但是他不会立即执行，而是返回一个新的函数引用。
 
-  ```javascript
-    var obj={
-      value:10,
-      say:function(){
-        setTimeout(function(){
-            console.log(this.value)
-        },1000)
-      }
-        }
-       obj.say() //此时this的指向为window
------------------------
-    var obj={
-      value:10,
-      say:function(){
-        setTimeout(function(){
-            console.log(this.value)
-        }.bind(this),1000)
-      }
-        }
-       obj.say() //10
-  ```
+   ```javascript
+     var obj={
+         value:10,
+         say:function(){
+           setTimeout(function(){
+               console.log(this.value)
+           },1000)
+         }
+           }
+          obj.say() //此时this的指向为window
+   -----------------------
+       var obj={
+         value:10,
+         say:function(){
+           setTimeout(function(){
+               console.log(this.value)
+           }.bind(this),1000)
+         }
+           }
+          obj.say() //10
+   ```
+
 
   总结，三个方法均可以改变this的值。接受的第一个值永远是this指向的目标对象，其中call，apply会立即执行。bind会返回一个绑定函数可稍后执行。call接受全部参数，apply接受一个数组集合。
 
@@ -149,22 +150,20 @@
 - bind
 
   ```javascript
-  Function.prototype.mybind=function(eontext){
+  Function.prototype.mybind=function(context){
       if(typeof this!=='function'){
          throw new Error("Function.prototype.bind - what is trying to be bound                         is not callable");  
       }
       var self=this
       var args=Array.prototype.slice.call(arguments,1)
-      var fn=function(){}
-      
-       var fbound= function(){
+      var fbound= function(){
           var bindArgs=Array.prototype.slice.call(arguments)
            // 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值
           // 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context
-          return self.apply(this instanceOf fn?his:self,context,args.concat(bindArgs))
+          return self.apply(this instanceOf fn?this:self,context,args.concat(bindArgs))
       }
-    
-       fn.prototype=this.prototype
+       var fn=function(){}
+       fn.prototype=self.prototype
        fbound.prototype=new fn()
        return fbound
   }

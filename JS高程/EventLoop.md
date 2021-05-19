@@ -16,13 +16,13 @@
 
 在JavaScript单线程运行机制中分为同步和异步任务，同步任务在等待主线程依次执行，异步任务在异步有了结果后，将注册的回调函数放入任务队列中等待主线程空闲的时候，再被读取到栈等待主线程操作。如下图所示
 
-![](C:\Users\tim\Desktop\学习\daily-study\JS高程\images\Event Loop.png)
+![](D:\学习\daily-study\JS高程\images\Event Loop.png)
 
 ------
 
 以下还有一张浏览器EventLoop执行图，将对其进行一个JavaScript代码的执行流程分析
 
-![](C:\Users\tim\Desktop\学习\daily-study\JS高程\images\Brow_eventloop.png)
+![](D:\学习\daily-study\JS高程\images\Brow_eventloop.png)
 
 1. 执行全局script同步代码。
 2. 全局script代码执行完后，调用栈清空，检查微任务队列是否为空，为空，取宏任务队首任务进行执行。不为空，此时跳转微任务执行步骤。
